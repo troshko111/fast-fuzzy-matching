@@ -22,11 +22,11 @@ namespace FFM
             }
         }
 
-        private readonly Dictionary<int, BKTreeNode<T>> _children;
+        private readonly SortedDictionary<int, BKTreeNode<T>> _children;
         public BKTreeNode(T data)
         {
             Data = data;
-            _children = new Dictionary<int, BKTreeNode<T>>();
+            _children = new SortedDictionary<int, BKTreeNode<T>>();
         }
 
         public void AddChild(BKTreeNode<T> child)
