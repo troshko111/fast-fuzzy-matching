@@ -3,22 +3,15 @@ using System.Collections.Generic;
 
 namespace FFM
 {
-    public interface IDistance
+    public class DamerauLevenshteinStringDistanceMeasurer : IDistanceMeasurer<string>
     {
-        int Calculate(string x, string y);
-    }
-
-    public class DamerauLevenshteinDistance : IDistance
-    {
-        public int Calculate(string x, string y)
+        public int Measure(string x, string y)
         {
-            return Distance(x, y);
+            return DamerauLevenshteinDistance(x, y);
         }
 
-        // Damerau–Levenshtein distance algorithm and code 
-        // from http://en.wikipedia.org/wiki/Damerau%E2%80%93Levenshtein_distance
-
-        public static int Distance(string source, string target)
+        // Damerau–Levenshtein distance http://en.wikipedia.org/wiki/Damerau%E2%80%93Levenshtein_distance
+        private int DamerauLevenshteinDistance(string source, string target)
         {
             if (string.IsNullOrEmpty(source))
                 return string.IsNullOrEmpty(target) ? 0 : target.Length;

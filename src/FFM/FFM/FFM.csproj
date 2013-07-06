@@ -39,8 +39,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IDistance.cs" />
-    <Compile Include="DamerauLevenshteinDistance.cs" />
+    <Compile Include="BKTree.cs" />
+    <Compile Include="BKTreeNode.cs" />
+    <Compile Include="DamerauLevenshteinStringDistanceMeasurer.cs" />
+    <Compile Include="IDistanceMeasurer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
