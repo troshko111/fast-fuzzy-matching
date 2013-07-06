@@ -156,8 +156,7 @@ namespace FFM.SampleApp
                     words.Add(w.ToLowerInvariant());
             }
 
-            //return new HashSet<string>(words.Shuffle());
-            return words;
+            return new HashSet<string>(words.Shuffle());
         }
 
         private static BKTree<string> BuildBKTree(IEnumerable<string> words)
