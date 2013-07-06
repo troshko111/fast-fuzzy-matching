@@ -29,12 +29,3 @@ http://dumps.wikimedia.org/enwiki/latest/ (all en_wikipedia titles).
 
 Sample app loads distinct words from file in lowercase (number of words to load can be limited using **desiredWordsCount**
 then **shuffles** them with http://en.wikipedia.org/wiki/Knuth_shuffle.
-
-Output (on my machine, MBA mid 2012) for 
-```cmd
-SampleApp.exe C:\Users\Taras\Desktop\enwiki-latest-all-titles-in-ns0 10000000 2 10000
-```
-(loading file into memory and building tree omitted for obvious reasons)
-```cmd
-
-```
