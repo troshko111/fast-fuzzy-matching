@@ -1,5 +1,4 @@
 http://stackoverflow.com/questions/4868969/implementing-a-simple-trie-for-efficient-levenshtein-distance-calculation-java
-http://stackoverflow.com/questions/2901831/algorithm-for-autocomplete?lq=1
 
 http://en.wikipedia.org/wiki/Radix_tree
 http://en.wikipedia.org/wiki/Prefix_tree
