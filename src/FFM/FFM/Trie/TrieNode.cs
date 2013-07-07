@@ -6,7 +6,7 @@ namespace FFM.Trie
     {
         public readonly char Letter;
 
-        private readonly SortedDictionary<char, TrieNode> _children;
+        private readonly SortedList<char, TrieNode> _children;
         public IEnumerable<TrieNode> Children
         {
             get
@@ -20,7 +20,7 @@ namespace FFM.Trie
         public TrieNode(char letter)
         {
             Letter = letter;
-            _children = new SortedDictionary<char, TrieNode>();
+            _children = new SortedList<char, TrieNode>();
         }
 
         public void AddChild(TrieNode child)
