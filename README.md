@@ -1,12 +1,12 @@
 fast-fuzzy-matching
 ===================
 
-Burkhard-Keller tree implementation. Uses Damerau-Levenshtein algorithm for metric calculation.
+### Burkhard-Keller tree with Damerau-Levenshtein algorithm for metric calculation.
 Based on http://blog.notdot.net/2007/4/Damn-Cool-Algorithms-Part-1-BK-Trees
 http://en.wikipedia.org/wiki/Damerau%E2%80%93Levenshtein_distance
 
 If you wish to use BK-tree with your custom types,
-**implement the following interface**
+implement the following interface
 ```c#
 public interface IDistanceMeasurer<in T>
 {
@@ -14,9 +14,12 @@ public interface IDistanceMeasurer<in T>
 }
 ```
 
-But take into account that any implementation **MUST form a Metric Space** (http://en.wikipedia.org/wiki/Metric_space).
-
+But take into account that any implementation **MUST** form a **Metric Space** (http://en.wikipedia.org/wiki/Metric_space).
 fast-fuzzy-matching comes with a **Damerau-Levenshtein** algorithm for distance calculation.
+
+### Fast Levenshtein distance using Trie (much faster then BK-tree)
+Based on http://stevehanov.ca/blog/index.php?id=114 <br/>
+http://en.wikipedia.org/wiki/Trie
 
 ### Sample app
 ```console
