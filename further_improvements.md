@@ -6,3 +6,4 @@ http://en.wikipedia.org/wiki/Radix_tree
 http://stevedaskam.wordpress.com/2009/05/17/autocomplete-data-structures/
 http://murilo.wordpress.com/2011/02/01/fast-and-easy-levenshtein-distance-using-a-trie-in-c/
 http://stevehanov.ca/blog/index.php?id=114
+http://ntz-develop.blogspot.com/2011/03/fuzzy-string-search.html
