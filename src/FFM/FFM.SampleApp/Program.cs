@@ -162,7 +162,7 @@ namespace FFM.SampleApp
 
         private static IIndex<string> BuildIndex(IEnumerable<string> words)
         {
-            var index = new BKIndex();
+            var index = new TrieIndex();
             Console.WriteLine("Index implementation: {0}.", index.GetType().Name);
 
             var insertionProgress = 0;
