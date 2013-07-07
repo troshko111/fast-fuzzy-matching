@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace FFM
+namespace FFM.BKTree
 {
     public class BKTree<T>
     { 
@@ -45,19 +45,19 @@ namespace FFM
             AddTo(child, node);
         }
 
-        public List<T> Matches(T query, int maxDistance)
+        public List<Match<T>> Matches(T query, int maxDistance)
         {
-            var results = new List<T>();
+            var results = new List<Match<T>>();
             Matches(Root, query, maxDistance, results);
             return results;
         }
 
-        private void Matches(BKTreeNode<T> subTree, T query, int maxDistance, ICollection<T> matches)
+        private void Matches(BKTreeNode<T> subTree, T query, int maxDistance, ICollection<Match<T>> matches)
         {
             var distance = _distanceMeasurer.Measure(subTree.Data, query);
 
             if (distance <= maxDistance)
-                matches.Add(subTree.Data);
+                matches.Add(new Match<T>(subTree.Data, distance));
 
             var lowerDistance = distance - maxDistance > 0 ? distance - maxDistance : 0;
             var upperDistance = distance + maxDistance;

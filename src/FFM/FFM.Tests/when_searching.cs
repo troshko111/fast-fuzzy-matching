@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using FFM.BKTree;
 using NUnit.Framework;
 
 namespace FFM.Tests

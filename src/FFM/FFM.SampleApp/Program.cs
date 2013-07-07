@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
+using FFM.SampleApp.Index;
 
 namespace FFM.SampleApp
 {
@@ -76,13 +77,13 @@ namespace FFM.SampleApp
             MeasureMemory(() => MeasureExecutionTime(() => words = LoadWordsFrom(filePath, desiredWords), stepName), stepName);
             Console.WriteLine("Total words processed: {0}.", words.Count);
 
-            BKTree<string> tree = null;
-            stepName = "Build BK-tree";
-            MeasureMemory(() => MeasureExecutionTime(() => tree = BuildBKTree(words), stepName), stepName);
+            IIndex<string> index = null;
+            stepName = "Build index";
+            MeasureMemory(() => MeasureExecutionTime(() => index = BuildIndex(words), stepName), stepName);
 
             stepName = "Random testing";
             var wordsList = words.ToList();
-            MeasureMemory(() => MeasureExecutionTime(() => RunQueries(tree, wordsList, maxDistance, randomQueriesToRun), stepName), stepName);
+            MeasureMemory(() => MeasureExecutionTime(() => RunQueries(index, wordsList, maxDistance, randomQueriesToRun), stepName), stepName);
         }
 
         private static void RunInInteractiveMode(string filePath, int desiredWords, int maxDistance)
@@ -97,9 +98,9 @@ namespace FFM.SampleApp
             MeasureMemory(() => MeasureExecutionTime(() => words = LoadWordsFrom(filePath, desiredWords), stepName), stepName);
             Console.WriteLine("Total words processed: {0}.", words.Count);
 
-            BKTree<string> tree = null;
-            stepName = "Build BK-tree";
-            MeasureMemory(() => MeasureExecutionTime(() => tree = BuildBKTree(words), stepName), stepName);
+            IIndex<string> index = null;
+            stepName = "Build index";
+            MeasureMemory(() => MeasureExecutionTime(() => index = BuildIndex(words), stepName), stepName);
 
             stepName = "Interactive querying";
             while (true)
@@ -109,10 +110,10 @@ namespace FFM.SampleApp
                 if (!string.IsNullOrEmpty(query))
                     query = query.ToLowerInvariant();
 
-                List<string> matches = null;
-                MeasureMemory(() => MeasureExecutionTime(() => matches = FindMatches(tree, query, maxDistance), stepName), stepName);
+                List<Match<string>> matches = null;
+                MeasureMemory(() => MeasureExecutionTime(() => matches = FindMatches(index, query, maxDistance), stepName), stepName);
                 Console.WriteLine("Found {0} matches.", matches.Count);
-                foreach (var match in matches)
+                foreach (var match in matches.OrderBy(m => m.Score))
                     Console.WriteLine(match);
             }
         }
@@ -159,27 +160,28 @@ namespace FFM.SampleApp
             return new HashSet<string>(words.Shuffle());
         }
 
-        private static BKTree<string> BuildBKTree(IEnumerable<string> words)
+        private static IIndex<string> BuildIndex(IEnumerable<string> words)
         {
-            var tree = new BKTree<string>(new DamerauLevenshteinStringDistanceMeasurer());
+            var index = new BKIndex();
+            Console.WriteLine("Index implementation: {0}.", index.GetType().Name);
 
             var insertionProgress = 0;
             foreach (var word in words)
             {
                 if (insertionProgress++ % NotificationStepForTreeBuilding == 0)
-                    Console.WriteLine("Inserted {0} words into BK-tree.", insertionProgress - 1);
-                tree.Add(new BKTreeNode<string>(word));
+                    Console.WriteLine("Inserted {0} words into index.", insertionProgress - 1);
+                index.Add(word);
             }
 
-            return tree;
+            return index;
         }
 
-        private static List<string> FindMatches(BKTree<string> tree, string query, int maxDistance)
+        private static List<Match<string>> FindMatches(IIndex<string> index, string query, int maxDistance)
         {
-            return tree.Matches(query, maxDistance);
+            return index.Matches(query, maxDistance);
         }
 
-        private static void RunQueries(BKTree<string> tree, IList<string> words, int maxDistance, int totalQueries)
+        private static void RunQueries(IIndex<string> index, IList<string> words, int maxDistance, int totalQueries)
         {
             var history = new List<TimeSpan>(totalQueries);
             var random = new Random();
@@ -192,7 +194,7 @@ namespace FFM.SampleApp
                 var word = words[random.Next(0, words.Count)];
 
                 watch.Start();
-                var matches = FindMatches(tree, word, maxDistance);
+                var matches = FindMatches(index, word, maxDistance);
                 watch.Stop();
 
                 history.Add(watch.Elapsed);
