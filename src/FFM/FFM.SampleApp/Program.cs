@@ -113,7 +113,7 @@ namespace FFM.SampleApp
                 List<Match<string>> matches = null;
                 MeasureMemory(() => MeasureExecutionTime(() => matches = FindMatches(index, query, maxDistance), stepName), stepName);
                 Console.WriteLine("Found {0} matches.", matches.Count);
-                foreach (var match in matches.OrderBy(m => m.Score))
+                foreach (var match in matches.OrderBy(m => m.Score).ThenBy(m => m.Data))
                     Console.WriteLine(match);
             }
         }
