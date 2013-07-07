@@ -7,5 +7,5 @@ http://murilo.wordpress.com/2011/02/01/fast-and-easy-levenshtein-distance-using-
 http://stevehanov.ca/blog/index.php?id=114
 http://ntz-develop.blogspot.com/2011/03/fuzzy-string-search.html
 
-
+http://blog.vjeux.com/2011/c/c-fuzzy-search-with-trie.html
 radix tree java: http://www.badgenow.com/p/radixtree/
