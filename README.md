@@ -17,7 +17,7 @@ public interface IDistanceMeasurer<in T>
 But take into account that any implementation **MUST** form a **Metric Space** (http://en.wikipedia.org/wiki/Metric_space).
 fast-fuzzy-matching comes with a **Damerau-Levenshtein** algorithm for distance calculation.
 
-### Fast Levenshtein distance using Trie (much faster then BK-tree)
+### Fast Levenshtein distance using Trie (much faster than BK-tree, but consumes more memory)
 Based on http://stevehanov.ca/blog/index.php?id=114 <br/>
 http://en.wikipedia.org/wiki/Trie
 
